@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for actions/nlu.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">actions/</a> nlu.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">48% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>24/50</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">37.84% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">48.98% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>24/49</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Calls the Natural Language Understanding service and returns a location type and disambiguation.
+ * @param {Object} params The parameters
+ * @param {String} params.NLU_USERNAME The username for the NLU service.
+ * @param {String} params.NLU_PASSWORD The password for the NLU service.
+ */
+&nbsp;
+const assert = require('assert');
+const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
+const DAYS_OF_WEEK = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+&nbsp;
+function main(params) {
+  return new Promise(function(resolve, reject) {
+    assert(params, 'params can not be null');
+    assert(params.NLU_USERNAME, 'params.NLU_USERNAME can not be null');
+    assert(params.NLU_PASSWORD, 'params.NLU_PASSWORD can not be null');
+    assert(params.conversation &amp;&amp; params.conversation.input, 'params.conversation.input can not be null');
+&nbsp;
+    const natural_language_understanding = new NaturalLanguageUnderstandingV1({username: params.NLU_USERNAME, password: params.NLU_PASSWORD, version_date: '2017-02-27'});
+&nbsp;
+    var parameters = {
+      text: params.conversation.input.text,
+      language: 'en',
+      features: {
+        entities: {
+          limit: 1,
+          Location: params.conversation.input.text
+        }
+      }
+    };
+&nbsp;
+    var isLowerCaseState = false;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (params.conversation.context.city &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >params.conversation.context.city.states)</span> {
+<span class="cstat-no" title="statement not covered" >      for (const key of Object.keys(params.conversation.context.city.states)) {</span>
+<span class="cstat-no" title="statement not covered" >        let lowercase = key.toLowerCase();</span>
+<span class="cstat-no" title="statement not covered" >        if (params.conversation.input.text === lowercase) {</span>
+<span class="cstat-no" title="statement not covered" >          isLowerCaseState = true;</span>
+<span class="cstat-no" title="statement not covered" >          params.conversation.input.text = key;</span>
+        }
+      }
+    }
+&nbsp;
+    natural_language_understanding.analyze(parameters, function(err, response) {
+      var output = params._id
+        ? <span class="branch-0 cbranch-no" title="branch not covered" >Object.assign({}, {</span>
+          conversation: params.conversation
+        }, {
+          _id: params._id
+        }, {_rev: params._rev})
+        : Object.assign({}, {conversation: params.conversation});
+      var context = params.conversation.context;
+&nbsp;
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (err &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >parameters.text !== '')</span> {
+<span class="cstat-no" title="statement not covered" >        return reject(err);</span>
+      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (DAYS_OF_WEEK.indexOf(parameters.text.toLowerCase()) &gt;= 0) {
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.date = parameters.text;</span>
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.today = parameters.text;</span>
+        // to determine if the day of the week for tomorrow falls at the end of the week
+<span class="cstat-no" title="statement not covered" >        let tomorrow = (DAYS_OF_WEEK.indexOf(parameters.text) &lt; DAYS_OF_WEEK.length - 2</span>
+          ? DAYS_OF_WEEK.indexOf(parameters.text) + 1
+          : 0);
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.tomorrow = DAYS_OF_WEEK[tomorrow];</span>
+      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (((context.abbreviations &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >context.abbreviations[parameters.text])</span> || (context.city &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >context.city.states[parameters.text])</span> || isLowerCaseState) &amp;&amp; <span class="branch-5 cbranch-no" title="branch not covered" >context.city.name)</span> {
+<span class="cstat-no" title="statement not covered" >        let state = context.abbreviations[parameters.text]</span>
+          ? context.abbreviations[parameters.text].full
+          : params.conversation.input.text;
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.state = state;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.city.states = {</span>
+          [state]: {
+            longitude: context.city.states[state].longitude,
+            latitude: context.city.states[state].latitude
+          }
+        };
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.city.number_of_states = 1;</span>
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.abbreviations = {};</span>
+      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (response.entities.length &gt; 0 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >response.entities[0].disambiguation </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >response.entities[0].disambiguation.subtype[0] === 'City')</span> {
+<span class="cstat-no" title="statement not covered" >        let location = response.entities.filter(e =&gt; <span class="cstat-no" title="statement not covered" >e.type === 'Location')</span>;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        let city_name = location[0].text;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (context.city.name !== parameters.text &amp;&amp; context.weather_conditions) {</span>
+<span class="cstat-no" title="statement not covered" >          delete output.conversation.context.weather_conditions;</span>
+<span class="cstat-no" title="statement not covered" >          delete output.conversation.context.date;</span>
+<span class="cstat-no" title="statement not covered" >          output.conversation.context.city.states = {};</span>
+<span class="cstat-no" title="statement not covered" >          output.conversation.context.city.number_of_states = null;</span>
+        }
+        // replace empty location field with new details of the detected city
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.city.name = city_name;</span>
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.city.alternate_name = city_name;</span>
+<span class="cstat-no" title="statement not covered" >        output.conversation.context.state = '';</span>
+      } else {
+        output.conversation.context.city = {
+          name: '',
+          number_of_states: null,
+          alternate_name: '',
+          states: {}
+        };
+        output.conversation.context.state = '';
+      }
+      return resolve(output);
+    });
+  });
+}
+&nbsp;
+module.exports.main = main;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Apr 23 2018 19:27:25 GMT-0500 (CDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

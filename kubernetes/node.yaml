@@ -1,0 +1,213 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: node-app
+  labels:
+    app: sandbox-node
+    tier: frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sandbox-node
+        tier: frontend
+    spec:
+      containers:
+      - name: node-app
+        image: "yamunaji/tmf_sample_app:latest"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app
+  labels:
+    app: sandbox-node
+spec:
+  type: NodePort
+  selector:
+    app: sandbox-node
+  ports:
+  - port: 3000  
+    targetPort: 3000
+    protocol: TCP
+    name: node-app-port
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nodered-app
+  labels:
+    app: sandbox-nodered
+    tier: frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sandbox-nodered
+        tier: frontend
+    spec:
+      containers:
+      - name: nodered-app
+        image: "jdraju/node-red-watson-tmf:latest"
+        env:
+            - name: FLOWS
+              value: "my_flows.json"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 1880
+---
+### Node Red service
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodered-app
+  labels:
+    app: sandbox-nodered
+    tier: frontend
+spec:
+  type: NodePort
+  selector:
+    app: sandbox-nodered
+    tier: frontend
+  ports:
+  - port: 1880  
+    targetPort: 1880
+    protocol: TCP
+    name: nodered-app-port
+---
+### MongoDB deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mongodb-sandbox
+  labels:
+    app: sandbox-nodered
+    tier: backend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sandbox-nodered
+        tier: backend
+    spec:
+      containers:
+      - name: mongo
+        image: "mongo:latest"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 27017
+---
+
+### MongoDB Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+  labels:
+    tier: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: sandbox-nodered
+    tier: backend
+  ports:
+  - port: 27017
+    targetPort: 27017
+    protocol: TCP
+    name: sandobox-mongodb-port
+---
+
+### MQTT deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mqtt-sandbox
+  labels:
+    app: sandbox-nodered
+    tier: backend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sandbox-nodered
+        tier: backend
+    spec:
+      containers:
+      - name: mqtt
+        image: "ncarlier/mqtt:latest"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 31798
+---
+### MQTT Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mqtt
+  labels:
+    tier: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: sandbox-nodered
+    tier: backend
+  ports:
+  - port: 31798
+    targetPort: 31798
+    protocol: TCP
+    name: sandobox-mqtt-port
+---
+
+### Openwhisk deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: openwhisk-sandbox
+  labels:
+    app: sandbox-nodered
+    tier: backend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sandbox-nodered
+        tier: backend
+    spec:
+      containers:
+      - name: openwhisk
+        image: "openwhisk/dockerskeleton:latest"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3128
+---
+
+### Openwhisk Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: openwhisk
+  labels:
+    tier: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: sandbox-nodered
+    tier: backend
+  ports:
+  - port: 3128
+    targetPort: 3128
+    protocol: TCP
+    name: sandobox-openwhisk-port

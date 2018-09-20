@@ -1,0 +1,225 @@
+[
+    {
+        "id": "4c354ca8.63b46c",
+        "type": "watson-conversation-v1",
+        "z": "669dd9eb.a0d06",
+        "name": "My Bot",
+        "workspaceid": "327a5803-afd6-430a-9cab-f779486a68ce",
+        "multiuser": false,
+        "context": false,
+        "empty-payload": true,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/assistant/api/v1/workspaces/ec70d037-81f9-4405-8199-8e3518871f27/message/",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 620,
+        "y": 500,
+        "wires": [
+            [
+                "e324f51.d360088"
+            ]
+        ]
+    },
+    {
+        "id": "eecc0605.e054f",
+        "type": "http in",
+        "z": "669dd9eb.a0d06",
+        "name": "BOT Home Page",
+        "url": "/bot",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 126,
+        "y": 391,
+        "wires": [
+            [
+                "ef458f0d.4326"
+            ]
+        ]
+    },
+    {
+        "id": "4d0b47e3.811c98",
+        "type": "template",
+        "z": "669dd9eb.a0d06",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!--\n# Copyright 2018 IBM\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#     http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n-->\n\n<html>\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>\n\t  My BOT\n\t</title>\n\t<link rel=\"stylesheet\"\n        type=\"text/css\"\n        href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" />\n  </head>\n  <body>\n\n    <div class=\"container\">\n      <div id=\"no-script\"class=\"bg-info\">\n        This application needs JavaScript enabled in your browser!\n      </div>\n      <div id=\"id_contextdump\"></div>\n\n      <h1>My BOT</h1>\n      <div id=id_botchathistory>\n\t  </div>\n\t  \n\t  <div>\n\t      <form>\n            <label for=\"id_chattext\">Your Input: </label>\n            <input type=\"text\" name=\"chattext\" id=\"id_chattext\">\n            <br/><br/>\n\t      </form>\n\t      <button onclick=\"javascript:onChatClick()\" id=\"id_enter\">Send</button>\n\t  </div>\n    </div>\n    \n    <script type=\"text/javascript\" src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>\n\n    <script>{{{payload.script}}}</script>\n  </body>\n</html>\n",
+        "x": 545,
+        "y": 391,
+        "wires": [
+            [
+                "7abbf42b.777c5c"
+            ]
+        ]
+    },
+    {
+        "id": "7abbf42b.777c5c",
+        "type": "http response",
+        "z": "669dd9eb.a0d06",
+        "name": "",
+        "x": 759,
+        "y": 391,
+        "wires": []
+    },
+    {
+        "id": "202ff955.04e46e",
+        "type": "http in",
+        "z": "669dd9eb.a0d06",
+        "name": "BOT REST API",
+        "url": "/botchat",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 125,
+        "y": 502,
+        "wires": [
+            [
+                "24bd1b0f.89761c"
+            ]
+        ]
+    },
+    {
+        "id": "cd005a9b.ef9988",
+        "type": "http response",
+        "z": "669dd9eb.a0d06",
+        "name": "",
+        "x": 876,
+        "y": 497,
+        "wires": []
+    },
+    {
+        "id": "69d77f8a.123da8",
+        "type": "function",
+        "z": "669dd9eb.a0d06",
+        "name": "Pre Service Processing",
+        "func": "// stash away incoming data\nmsg.mydata = {};\nmsg.mydata.messagein = msg.req.body.msgdata;\nmsg.payload = msg.mydata.messagein;\n\nmsg.req.body.context.private={\n\t\t\"my_credentials\": {\n\t\t\t\"user\": msg.user,\n\t\t\t\"password\": msg.password\n\t\t}\n\t}\n\noriginalcontext = msg.req.body.context\n\nmsg.params = { \"context\": originalcontext};\n//msg.params = { \"context\": wsk};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 520,
+        "wires": [
+            [
+                "4c354ca8.63b46c",
+                "c0b1361e.09a2d"
+            ]
+        ]
+    },
+    {
+        "id": "e324f51.d360088",
+        "type": "function",
+        "z": "669dd9eb.a0d06",
+        "name": "Post Service Processing",
+        "func": "msg.mydata.messageout = msg.payload;\n\nmsg.payload = {};\nmsg.payload.botresponse = msg.mydata;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 740,
+        "y": 593,
+        "wires": [
+            [
+                "cd005a9b.ef9988",
+                "37e17498.a34af4"
+            ]
+        ]
+    },
+    {
+        "id": "ef458f0d.4326",
+        "type": "template",
+        "z": "669dd9eb.a0d06",
+        "name": "JavaScript",
+        "field": "payload.script",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "$(document).ready(function() {\n    javascriptCheck();\n    $('#id_contextdump').hide();\n    enterbutton();\n    invokeAjax (\"Hello\");\n});\n\n// if javascript is enabled on the browser then can remove the warning message\nfunction javascriptCheck() {\n    $('#no-script').remove();\n}\n\n// creates div for interaction with bot      \nfunction createNewDiv(who, message) {\n    var txt = who + ' : ' + message;\n    return $('<div></div>').text(txt);\n}\n\n// appends latest communication with bot to botchathistory\nfunction chat(person, txt) {\n    $('#id_botchathistory').append(createNewDiv(person, txt));\n}    \n\n// sets pressing of enter key to perform same action as send button\nfunction enterbutton(){\n    $(function() {\n        $(\"form input\").keypress(function (e) {\n        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {\n             $('#id_enter').click();\n             return false;\n        } else {\n        return true;\n        }\n     });\n    });\n}\n\n// User has entered some text.\nfunction onChatClick() {\n    var txt = $('#id_chattext').val();\n    chat('You', txt); \n    invokeAjax(txt);\n    $('#id_chattext').val('');\n}\n\nfunction processOK(response) {\n    console.log(response);\n    console.log(response.botresponse.messageout);\n    console.log(response.botresponse.messageout.output.text);\n    console.log(response.botresponse.messageout.context);\n    chat('Bot', response.botresponse.messageout.output.text); \n    $('#id_contextdump').data('convContext', response.botresponse.messageout.context);\n}\n      \nfunction processNotOK() {\n    chat('Error', 'Error whilst attempting to talk to Bot');\n}\n      \nfunction invokeAjax(message) {\n    var contextdata = $('#id_contextdump').data('convContext');\n    console.log('checking stashed context data');\n    console.log(contextdata);\n        \n    var ajaxData = {};\n    ajaxData.msgdata = message;\n    if (contextdata) {\n        ajaxData.context = contextdata;    \n    }\n    else{\n        ajaxData.context = {\"private\":\"\"}\n    }\n\n    $.ajax({\n        type: 'POST',\n        url: 'botchat',\n        data: ajaxData,\n        success: processOK,\n        error: processNotOK\n    });\n}",
+        "output": "str",
+        "x": 349,
+        "y": 391,
+        "wires": [
+            [
+                "4d0b47e3.811c98",
+                "3ecb7869.840f3"
+            ]
+        ]
+    },
+    {
+        "id": "8b3baadc.ab932",
+        "type": "comment",
+        "z": "669dd9eb.a0d06",
+        "name": "Conversation BOT Template",
+        "info": "",
+        "x": 165,
+        "y": 350,
+        "wires": []
+    },
+    {
+        "id": "278da318.96c9c4",
+        "type": "comment",
+        "z": "669dd9eb.a0d06",
+        "name": "Conversation REST API",
+        "info": "",
+        "x": 144,
+        "y": 462,
+        "wires": []
+    },
+    {
+        "id": "37e17498.a34af4",
+        "type": "debug",
+        "z": "669dd9eb.a0d06",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 800,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "c0b1361e.09a2d",
+        "type": "debug",
+        "z": "669dd9eb.a0d06",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 540,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "3ecb7869.840f3",
+        "type": "debug",
+        "z": "669dd9eb.a0d06",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "x": 520,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "24bd1b0f.89761c",
+        "type": "function",
+        "z": "669dd9eb.a0d06",
+        "name": "Change credentials here",
+        "func": "msg.user ='ccb1c597-f57c-4f31-b2b2-3a3ec89c5774'\nmsg.password = '0d4e14uzt35xwr5G2jb46e5WMKbY7gv86Bs5XSKeTpCNy8dCz8RcxSzSkXicXhIy'\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 240,
+        "y": 620,
+        "wires": [
+            [
+                "69d77f8a.123da8"
+            ]
+        ]
+    }
+]

@@ -1,0 +1,14 @@
+---
+declared-services:
+  tmf-sample-chat-bot:
+    label: conversation
+    plan: free
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  name: tmflab-chatbot-app
+  buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  disk_quota: 512M
+  services:
+  - tmf-chat-bot
